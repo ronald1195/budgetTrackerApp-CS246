@@ -16,17 +16,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*String [] myStringArray = new String [15];
-        for (int i = 0; i < 15; i++)
-        {
-            myStringArray[i] = Integer.toString(i + 1);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1, myStringArray);
+        HomeDisplay homeDisplay = new HomeDisplay();
+        //homeDisplay.onCreate(savedInstanceState);
+
+        //ListView mainListView = findViewById(R.id.mainListView);
+
+
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1, myStringArray);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);*/
 
         setContentView(R.layout.activity_main);
     }
+    /*String [] myStringArray = new String [15];
+    protected static String num() {
+        String [] myStringArray = new String[15];
+        for (int i = 0; i < 15; i++) {
+            myStringArray[i] = Integer.toString(i + 1);
+            //return myStringArray[i];
+        }
+        for (int i = 0; i < 15; i++) {
+            myStringArray[0] += myStringArray[i];
+        }
+        return myStringArray[0];
+        return "HELLO";
+    }*/
 
 
 
