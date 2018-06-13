@@ -26,12 +26,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);*/
 
         setContentView(R.layout.activity_main);
-        //Ethan
     }
 
 
 
 
 
-    //Comment made by Ronald
 }
