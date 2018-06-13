@@ -10,9 +10,7 @@ public class Membership {
     String frequency;
     String comments;
 
-    ///////////////////////////////////////////////
     // Default constructor for Membership class
-    ///////////////////////////////////////////////
     public Membership(){
         userName = null;
         userEmail = null;
@@ -21,9 +19,7 @@ public class Membership {
         frequency = null;
     }
 
-    ///////////////////////////////////////////////
     // Non-default constructor for Membership class
-    ///////////////////////////////////////////////
     public Membership(String name, String email, Date dueDate, String freq , String comment){
         userName = name;
         userEmail = email;
@@ -32,9 +28,17 @@ public class Membership {
         comments = comment;
     }
 
-    ///////////////////////////////////////////////
+    // Non-default constructor 2
+    public Membership(String name, Date dueDate, String freq ){
+        userName = name;
+        userEmail = null;
+        paymentDueDate = dueDate;
+        frequency = freq;
+        comments = null;
+    }
+
+
     // Some Getters
-    ///////////////////////////////////////////////
     public String getUserName() {
         return userName;
     }
@@ -59,9 +63,7 @@ public class Membership {
                         +"\nComments:          " + displayComments());
     }
 
-    ///////////////////////////////////////////////
     //  Function useful to handle empty comments.
-    ///////////////////////////////////////////////
     public String displayComments(){
         String emptyCommentMessage = "There is no comments for this membership";
 
@@ -73,9 +75,7 @@ public class Membership {
         }
     }
 
-    ///////////////////////////////////////////////
     // Function just to convert a date to a string.
-    ///////////////////////////////////////////////
     public String dateToString(Date indate)
     {
         String dateString = null;
@@ -90,6 +90,5 @@ public class Membership {
         }
         return dateString;
     }
-
 
 }
