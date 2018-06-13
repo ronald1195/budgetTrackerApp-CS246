@@ -10,7 +10,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Ethan
     }
 
     public int i = 0;
@@ -21,5 +20,4 @@ public class MainActivity extends AppCompatActivity {
         return i;
     }
 
-    //Comment made by Ronald
 }
