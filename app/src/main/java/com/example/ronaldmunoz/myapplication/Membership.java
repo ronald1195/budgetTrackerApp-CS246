@@ -30,7 +30,7 @@ public class Membership {
     }
 
     ///////////////////////////////////////////////
-    //  Some Getters
+    // Some Getters
     ///////////////////////////////////////////////
     public void getMembershipInfo(){
         System.out.print("Name on membership:  " + userName
@@ -40,7 +40,7 @@ public class Membership {
     }
 
     ///////////////////////////////////////////////
-    //  Function just to convert a date to a string.ß
+    // Function just to convert a date to a string.
     ///////////////////////////////////////////////
     public String dateToString(Date indate)
     {
