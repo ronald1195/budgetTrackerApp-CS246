@@ -7,6 +7,7 @@ public class Membership {
     String userName;
     String userEmail;
     Date paymentDueDate;
+    String frequency;
     String comments;
 
     ///////////////////////////////////////////////
@@ -17,26 +18,59 @@ public class Membership {
         userEmail = null;
         paymentDueDate = null;
         comments = null;
+        frequency = null;
     }
 
     ///////////////////////////////////////////////
     // Non-default constructor for Membership class
     ///////////////////////////////////////////////
-    public Membership(String name, String email, Date dueDate, String comment){
+    public Membership(String name, String email, Date dueDate, String freq , String comment){
         userName = name;
         userEmail = email;
         paymentDueDate = dueDate;
+        frequency = freq;
         comments = comment;
     }
 
     ///////////////////////////////////////////////
     // Some Getters
     ///////////////////////////////////////////////
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public Date getPaymentDueDate() {
+        return paymentDueDate;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+
     public void getMembershipInfo(){
-        System.out.print("Name on membership:  " + userName
-                        +"\nEmail:             " + userEmail
-                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every month"
+        System.out.print("Name on membership:  " + getUserName()
+                        +"\nEmail:             " + getUserName()
+                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " + getFrequency()
                         +"\nComments:          " + displayComments());
+    }
+
+    ///////////////////////////////////////////////
+    //  Function useful to handle empty comments.
+    ///////////////////////////////////////////////
+    public String displayComments(){
+        String emptyCommentMessage = "There is no comments for this membership";
+
+        if(comments != null){
+            return comments;
+        }
+        else{
+            return emptyCommentMessage;
+        }
     }
 
     ///////////////////////////////////////////////
@@ -57,18 +91,5 @@ public class Membership {
         return dateString;
     }
 
-    ///////////////////////////////////////////////
-    //  Function useful to handle empty comments.
-    ///////////////////////////////////////////////
-    public String displayComments(){
-        String emptyCommentMessage = "There is no comments for this membership";
-
-        if(comments != null){
-            return comments;
-        }
-        else{
-            return emptyCommentMessage;
-        }
-    }
 
 }
