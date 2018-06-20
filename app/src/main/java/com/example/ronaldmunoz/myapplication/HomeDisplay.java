@@ -21,7 +21,7 @@ public class HomeDisplay extends Activity {
         //Find the ListView resource.
         mainListView = findViewById(R.id.mainListView);
 
-        //Create and populate a List of planet names.
+        //Create and populate a List of strings.
         String [] num = new String[] {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen"};
         ArrayList<String> numList = new ArrayList<>();
         numList.addAll(Arrays.asList(num));
