@@ -5,7 +5,7 @@ android:orientation="vertical"    android:layout_width="match_parent" android:la
     <TextView
         android:id="@+id/txtmessage"
         android:layout_width="match_parent"
-        android:layout_heighht="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="16sp"
     />
@@ -27,6 +27,7 @@ android:orientation="vertical"    android:layout_width="match_parent" android:la
             android:id="@+id/btedit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="editActivity"
             android:text="Edit"
             android:layout_weight="1"/>
         <Button
