@@ -1,6 +1,7 @@
 package com.example.ronaldmunoz.myapplication;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class MainActivity extends ListActivity {
 
@@ -20,9 +23,18 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //I made some changes to be able to open the edit activity from selecting a listview item
         String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_expandable_list_item_1, list);
         getListView().setAdapter(adapter);
+
+        //When the user ong clicks on the list item he will get a dialog box
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return true;
+            }
+        });
         //homeDisplay.onCreate(savedInstanceState);
 
         //ListView mainListView = findViewById(R.id.mainListView);
@@ -48,6 +60,23 @@ public class MainActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //This function is to show the dialog box containing the edit and delete options
+    public void showInputBox (String oldItem, final int index){
+        //setting up a few things
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setTitle("Edit");
+        dialog.setContentView(R.layout.list_item);
+        TextView txtMessage = dialog.findViewById(R.id.txtmessage);
+        txtMessage.setText("Edit options");
+        Button btEdit = dialog.findViewById(R.id.btedit);
+        dialog.show();
+    }
+
+    public void editActivity(View view) {
+        
+    }
+
 
     /*String [] myStringArray = new String [15];
     protected static String num() {
