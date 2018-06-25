@@ -1,6 +1,7 @@
 package com.example.ronaldmunoz.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Edit extends AppCompatActivity {
 
@@ -39,13 +42,16 @@ public class Edit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        loadSelectedItem();
+
         //This is the spinner containing the frequency of payment
         Spinner mySpinner = findViewById(R.id.paymentFreqSp);
-        mySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paymentFrequency.values()));
+        mySpinner.setAdapter
+                (new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paymentFrequency.values()));
     }
 
 
-    //The button
+    //The "Save" button
     public void saveChanges(View view) throws ParseException {
         EditText text = findViewById(R.id.userNameTb);
         userName = text.getText().toString();
@@ -62,6 +68,26 @@ public class Edit extends AppCompatActivity {
 
         text = findViewById(R.id.editText5);
         comments = text.getText().toString();
+
+        serializeAndStore();
+    }
+
+
+    public void serializeAndStore() {
+        //Serializing a new object with the edited information... hopefully
+        Membership mem = new Membership
+                (userName, userEmail, paymentDueDate, frequency, comments, index);
+        String newJson = gson.toJson(mem);
+
+        //Adding the items to the arrayList at the index we got from the list and converting
+        // to a set.
+        paymentList.set(index,newJson);
+        Set<String> paymentSet = new TreeSet<>(paymentList);
+
+        //Saving to Shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences(MainActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putStringSet("payments", paymentSet);
+
     }
 
     //Getting the json and index
