@@ -7,8 +7,11 @@ public class Membership {
     String userName;
     String userEmail;
     Date paymentDueDate;
-    String frequency;
     String comments;
+
+    enum frequency{
+        WEEKLY, MONTHLY, YEARLY
+    }
 
     // Default constructor for Membership class
     public Membership(){
@@ -16,7 +19,6 @@ public class Membership {
         userEmail = null;
         paymentDueDate = null;
         comments = null;
-        frequency = null;
     }
 
     // Non-default constructor for Membership class
@@ -24,7 +26,7 @@ public class Membership {
         userName = name;
         userEmail = email;
         paymentDueDate = dueDate;
-        frequency = freq;
+        //frequency = freq;
         comments = comment;
     }
 
@@ -33,7 +35,7 @@ public class Membership {
         userName = name;
         userEmail = null;
         paymentDueDate = dueDate;
-        frequency = freq;
+        //frequency = freq;
         comments = null;
     }
 
@@ -51,15 +53,17 @@ public class Membership {
         return paymentDueDate;
     }
 
+    /*
     public String getFrequency() {
         return frequency;
     }
+    */
 
 
     public void getMembershipInfo(){
         System.out.print("Name on membership:  " + getUserName()
                         +"\nEmail:             " + getUserName()
-                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " + getFrequency()
+                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " //+ getFrequency()
                         +"\nComments:          " + displayComments());
     }
 
