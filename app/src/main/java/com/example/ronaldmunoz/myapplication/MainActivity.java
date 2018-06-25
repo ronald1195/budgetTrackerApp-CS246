@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,12 +20,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 public class MainActivity extends ListActivity {
 
     ArrayList<String> arrayList;
-    public static String jsonItem;
     public static final String EDIT_ITEM = "com.example.ronaldmunoz.myapplication.ITEM";
+
+    //This is where the string Set will be stored
+    public static String jsonItem;
+    Set<String> payments;
+    ArrayList<String> paymentsList;
+    int listIndex;
+    public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +40,15 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //I made some changes to be able to open the edit activity from selecting a listview item
+        loadItems();
+
+        //I made some changes to be able to open the edit activity from selecting a listView item
         final String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
         arrayList = new ArrayList<>(Arrays.asList(list));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_expandable_list_item_1, arrayList);
         getListView().setAdapter(adapter);
+
+
 
         //When the user presses and holds on an item in the list he will get a dialog box
         //containing an edit and a delete button, currently the delete one
@@ -83,15 +95,23 @@ public class MainActivity extends ListActivity {
         TextView txtMessage = dialog.findViewById(R.id.txtmessage);
         txtMessage.setText("Edit options");
         Button btEdit = dialog.findViewById(R.id.btedit);
-        //For temporary testing purposes
-        jsonItem = oldItem;
+        listIndex = index;
         dialog.show();
     }
 
+    //Starts the edit activity when the button in the dialog box is pressed
     public void editActivity(View view) {
         Intent intent = new Intent(this, Edit.class);
+        jsonItem = paymentsList.get(listIndex);
         intent.putExtra(EDIT_ITEM, jsonItem);
         startActivity(intent);
+    }
+
+    //Loading the shared preferences into a set and convert it to a payment list
+    public void loadItems() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        payments = prefs.getStringSet("payments", null);
+        paymentsList = new ArrayList<>(payments);
     }
 
 

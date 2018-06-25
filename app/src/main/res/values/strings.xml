@@ -94,4 +94,9 @@
     <string name="TestCounter">counter(i)</string>
     <string name="Count">myStringArray[]</string>
     <string name="num">num()</string>
+    <string name="name">Name</string>
+    <string name="email">E-mail</string>
+    <string name="dueDate">Due Date</string>
+    <string name="comments">Comments</string>
+    <string name="done">Done</string>
 </resources>
