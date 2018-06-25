@@ -22,10 +22,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
+/*
+Right now there are two separate lists for the payments one for display and the other one
+containing the JSON I will mostly be dealing with the JSON one for the edit activity
+and I will hook the two up later on
+Durid
+*/
+
 public class MainActivity extends ListActivity {
 
     ArrayList<String> arrayList;
+
+    //Intent Extras
     public static final String EDIT_ITEM = "com.example.ronaldmunoz.myapplication.ITEM";
+    public static final String INDEX = "com.example.ronaldmunoz.myapplication.INDEX";
+    public static final String ARRAY_LIST = "com.example.ronaldmunoz.myapplication.LIST";
 
     //This is where the string Set will be stored
     public static String jsonItem;
@@ -104,6 +115,8 @@ public class MainActivity extends ListActivity {
         Intent intent = new Intent(this, Edit.class);
         jsonItem = paymentsList.get(listIndex);
         intent.putExtra(EDIT_ITEM, jsonItem);
+        intent.putExtra(INDEX, listIndex);
+        intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
         startActivity(intent);
     }
 
