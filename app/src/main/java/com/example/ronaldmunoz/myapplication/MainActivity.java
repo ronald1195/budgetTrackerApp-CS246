@@ -20,17 +20,9 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+        String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_expandable_list_item_1, list);
         getListView().setAdapter(adapter);
-        //homeDisplay.onCreate(savedInstanceState);
-
-        //ListView mainListView = findViewById(R.id.mainListView);
-
-
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1, myStringArray);
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);*/
     }
 
     @Override
@@ -48,23 +40,4 @@ public class MainActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /*String [] myStringArray = new String [15];
-    protected static String num() {
-        String [] myStringArray = new String[15];
-        for (int i = 0; i < 15; i++) {
-            myStringArray[i] = Integer.toString(i + 1);
-            //return myStringArray[i];
-        }
-        for (int i = 0; i < 15; i++) {
-            myStringArray[0] += myStringArray[i];
-        }
-        return myStringArray[0];
-        return "HELLO";
-    }*/
-
-
-
-
-
 }
