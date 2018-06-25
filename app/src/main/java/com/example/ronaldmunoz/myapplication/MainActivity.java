@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeSet;
 
 /*
 Right now there are two separate lists for the payments one for display and the other one
@@ -42,8 +43,13 @@ public class MainActivity extends ListActivity {
     public static String jsonItem;
     Set<String> payments;
     ArrayList<String> paymentsList;
+    Set<String> emptySet = new TreeSet<String>();
+
+
     int listIndex;
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
 
         loadItems();
+        emptySet.add("empty");
 
         //I made some changes to be able to open the edit activity from selecting a listView item
         final String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
@@ -123,8 +130,9 @@ public class MainActivity extends ListActivity {
     //Loading the shared preferences into a set and convert it to a payment list
     public void loadItems() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        payments = prefs.getStringSet("payments", null);
+        payments = prefs.getStringSet("payments", emptySet);
         paymentsList = new ArrayList<>(payments);
+
     }
 
 
