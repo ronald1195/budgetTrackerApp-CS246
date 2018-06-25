@@ -87,7 +87,7 @@ public class Edit extends AppCompatActivity {
         //Saving to Shared preferences
         SharedPreferences.Editor editor = getSharedPreferences(MainActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.putStringSet("payments", paymentSet);
-
+        editor.apply();
     }
 
     //Getting the json and index

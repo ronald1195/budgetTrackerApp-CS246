@@ -127,6 +127,13 @@ public class MainActivity extends ListActivity {
         startActivity(intent);
     }
 
+    //Starts the add activity
+    public void addActivity(View view) {
+        Intent intent = new Intent(this, Add.class);
+        intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
+        startActivity(intent);
+    }
+
     //Loading the shared preferences into a set and convert it to a payment list
     public void loadItems() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
