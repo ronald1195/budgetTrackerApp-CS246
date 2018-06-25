@@ -7,11 +7,10 @@ public class Membership {
     String userName;
     String userEmail;
     Date paymentDueDate;
+    String frequency;
     String comments;
-
-    enum frequency{
-        WEEKLY, MONTHLY, YEARLY
-    }
+    //The index is to help keep track of the item in the arrayList when it is being edited
+    int index;
 
     // Default constructor for Membership class
     public Membership(){
@@ -19,24 +18,28 @@ public class Membership {
         userEmail = null;
         paymentDueDate = null;
         comments = null;
+        frequency = null;
+        index = 0;
     }
 
     // Non-default constructor for Membership class
-    public Membership(String name, String email, Date dueDate, String freq , String comment){
+    public Membership(String name, String email, Date dueDate, String freq , String comment, int index){
         userName = name;
         userEmail = email;
         paymentDueDate = dueDate;
-        //frequency = freq;
+        frequency = freq;
         comments = comment;
+        this.index = index;
     }
 
     // Non-default constructor 2
-    public Membership(String name, Date dueDate, String freq ){
+    public Membership(String name, Date dueDate, String freq, int index){
         userName = name;
         userEmail = null;
         paymentDueDate = dueDate;
-        //frequency = freq;
+        frequency = freq;
         comments = null;
+        this.index = index;
     }
 
 
@@ -53,17 +56,17 @@ public class Membership {
         return paymentDueDate;
     }
 
-    /*
     public String getFrequency() {
         return frequency;
     }
-    */
+
+    public  int getIndex() {return index;}
 
 
     public void getMembershipInfo(){
         System.out.print("Name on membership:  " + getUserName()
                         +"\nEmail:             " + getUserName()
-                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " //+ getFrequency()
+                        +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " + getFrequency()
                         +"\nComments:          " + displayComments());
     }
 
