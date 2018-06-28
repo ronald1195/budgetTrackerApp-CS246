@@ -15,13 +15,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tittle"
-        tools:ignore="MissingConstraints"></ListView>
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tittle"
         android:layout_width="395dp"
         android:layout_height="67dp"
-        android:text="Budget Tracker App"
+        android:text="@string/budget_tracker_app"
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/listView"

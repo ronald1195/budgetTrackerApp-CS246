@@ -2,6 +2,7 @@ package com.example.ronaldmunoz.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class Add extends AppCompatActivity {
 
@@ -13,5 +14,8 @@ public class Add extends AppCompatActivity {
 
     public void loadData() {
 
+    }
+
+    public void saveItem(View view) {
     }
 }

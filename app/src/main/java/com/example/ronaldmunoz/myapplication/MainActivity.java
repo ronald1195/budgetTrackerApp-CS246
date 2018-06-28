@@ -1,21 +1,16 @@
 package com.example.ronaldmunoz.myapplication;
 
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,7 +38,7 @@ public class MainActivity extends ListActivity {
     public static String jsonItem;
     Set<String> payments;
     ArrayList<String> paymentsList;
-    Set<String> emptySet = new TreeSet<String>();
+    Set<String> emptySet = new TreeSet<>();
 
 
     int listIndex;
@@ -98,10 +93,7 @@ public class MainActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     //This function is to show the dialog box containing the edit and delete options
