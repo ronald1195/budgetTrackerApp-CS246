@@ -61,8 +61,7 @@ public class MainActivity extends ListActivity {
         emptySet.add("empty");
 
         //I made some changes to be able to open the edit activity from selecting a listView item
-        final String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
-        arrayList = new ArrayList<>(Arrays.asList(list));
+        final String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen"};        arrayList = new ArrayList<>(Arrays.asList(list));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_expandable_list_item_1, arrayList);
         getListView().setAdapter(adapter);
 
