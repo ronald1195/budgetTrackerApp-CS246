@@ -45,8 +45,6 @@ public class MainActivity extends ListActivity {
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
 
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
