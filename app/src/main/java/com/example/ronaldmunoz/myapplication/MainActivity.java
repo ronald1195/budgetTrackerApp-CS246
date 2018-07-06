@@ -2,9 +2,11 @@ package com.example.ronaldmunoz.myapplication;
 
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,11 +43,20 @@ public class MainActivity extends ListActivity {
     Set<String> emptySet = new TreeSet<>();
 
 
+    //RONALD STUFF
+    public static final String USER_PREF = "USER_PREF";
+    public static final String KEY_NAME = "MEMBERSHIP_NAME";
+    SharedPreferences sp;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private ArrayAdapter<String> listAdapter ;
+
+
     int listIndex;
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
 
 
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -54,10 +65,10 @@ public class MainActivity extends ListActivity {
         emptySet.add("empty");
 
         //I made some changes to be able to open the edit activity from selecting a listView item
-        final String [] list = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+        final String [] list = {"one"/*, "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"*/};
         arrayList = new ArrayList<>(Arrays.asList(list));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getListView().getContext(), android.R.layout.simple_expandable_list_item_1, arrayList);
-        getListView().setAdapter(adapter);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        getListView().setAdapter(listAdapter);
 
 
 
@@ -71,14 +82,6 @@ public class MainActivity extends ListActivity {
                 return true;
             }
         });
-        //homeDisplay.onCreate(savedInstanceState);
-
-        //ListView mainListView = findViewById(R.id.mainListView);
-
-
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1, myStringArray);
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);*/
     }
 
     @Override
@@ -119,9 +122,8 @@ public class MainActivity extends ListActivity {
 
     //Starts the add activity
     public void addActivity(View view) {
-        Intent intent = new Intent(this, Add.class);
-        intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
-        startActivity(intent);
+        Intent startAddActivity = new Intent(this, Add.class);
+        startActivityForResult(startAddActivity, SECOND_ACTIVITY_REQUEST_CODE);
     }
 
     //Loading the shared preferences into a set and convert it to a payment list
@@ -132,22 +134,30 @@ public class MainActivity extends ListActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-    /*String [] myStringArray = new String [15];
-    protected static String num() {
-        String [] myStringArray = new String[15];
-        for (int i = 0; i < 15; i++) {
-            myStringArray[i] = Integer.toString(i + 1);
-            //return myStringArray[i];
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                // get String data from Intent
+                String returnString = data.getStringExtra("returningStringArray");
+
+                //Printing what was saved in the shared_preferences file
+                String TAG = getApplication().getPackageName();
+                sp = getSharedPreferences(USER_PREF, Context.MODE_PRIVATE);
+                if (sp.contains(KEY_NAME)) {
+                    Log.i(TAG, "shared preferences content: " + sp.getString(KEY_NAME,""));
+
+                    listAdapter.add(sp.getString(KEY_NAME,""));
+                    // fire the event
+                    listAdapter.notifyDataSetChanged();
+                }
+            }
         }
-        for (int i = 0; i < 15; i++) {
-            myStringArray[0] += myStringArray[i];
-        }
-        return myStringArray[0];
-        return "HELLO";
-    }*/
-
-
+    }
 
 
 
