@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,6 +35,7 @@ public class Edit extends AppCompatActivity {
     ArrayList<String> paymentList;
 
     //Throwback to week 3
+
     Gson gson = new Gson();
 
     @Override
@@ -103,7 +104,7 @@ public class Edit extends AppCompatActivity {
     //Filling up every field with the previously typed information
     public void fillUpFields(Membership mem) {
         EditText text = findViewById(R.id.userNameTb);
-        text.setText(mem.getUserName());
+        text.setText(mem.getMembershipName());
 
         text = findViewById(R.id.userEmailTb);
         text.setText(mem.getUserEmail());
@@ -116,6 +117,7 @@ public class Edit extends AppCompatActivity {
         int spinnerPos =
         mySpinner.setS;
         */
+
         text = findViewById(R.id.editText5);
         text.setText(mem.comments);
     }

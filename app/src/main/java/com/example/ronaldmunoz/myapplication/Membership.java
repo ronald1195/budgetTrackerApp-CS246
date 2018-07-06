@@ -4,17 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Membership {
-    String userName;
+    String membershipName;
     String userEmail;
     Date paymentDueDate;
     String frequency;
     String comments;
+
     //The index is to help keep track of the item in the arrayList when it is being edited
     int index;
 
     // Default constructor for Membership class
     public Membership(){
-        userName = null;
+        membershipName = null;
         userEmail = null;
         paymentDueDate = null;
         comments = null;
@@ -24,7 +25,7 @@ public class Membership {
 
     // Non-default constructor for Membership class
     public Membership(String name, String email, Date dueDate, String freq , String comment, int index){
-        userName = name;
+        membershipName = name;
         userEmail = email;
         paymentDueDate = dueDate;
         frequency = freq;
@@ -34,7 +35,7 @@ public class Membership {
 
     // Non-default constructor 2
     public Membership(String name, Date dueDate, String freq, int index){
-        userName = name;
+        membershipName = name;
         userEmail = null;
         paymentDueDate = dueDate;
         frequency = freq;
@@ -44,8 +45,8 @@ public class Membership {
 
 
     // Some Getters
-    public String getUserName() {
-        return userName;
+    public String getMembershipName() {
+        return membershipName;
     }
 
     public String getUserEmail() {
@@ -64,8 +65,8 @@ public class Membership {
 
 
     public void getMembershipInfo(){
-        System.out.print("Name on membership:  " + getUserName()
-                        +"\nEmail:             " + getUserName()
+        System.out.print("Name on membership:  " + getMembershipName()
+                        +"\nEmail:             " + getMembershipName()
                         +"\nPayment is due the " + dateToString(paymentDueDate) + " of every " + getFrequency()
                         +"\nComments:          " + displayComments());
     }
@@ -87,9 +88,11 @@ public class Membership {
     {
         String dateString = null;
         SimpleDateFormat sdfr = new SimpleDateFormat("dd");
-        /*you can also use DateFormat reference instead of SimpleDateFormat
-         * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-         */
+        /*
+        you can also use DateFormat reference instead of SimpleDateFormat
+        * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+
+        */
         try{
             dateString = sdfr.format( indate );
         }catch (Exception ex ){
