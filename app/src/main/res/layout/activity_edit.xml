@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userNameTb" />
 
     <EditText
-        android:id="@+id/dueDateTb"
+        android:id="@+id/dueDateTb1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.009"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dueDateTb" />
+        app:layout_constraintTop_toBottomOf="@+id/dueDateTb1" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/commentsAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
@@ -84,6 +84,6 @@
         android:text="@string/done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/commentsAdd" />
 
 </android.support.constraint.ConstraintLayout>

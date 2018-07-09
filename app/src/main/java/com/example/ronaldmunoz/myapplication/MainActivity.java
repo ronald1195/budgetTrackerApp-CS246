@@ -122,8 +122,9 @@ public class MainActivity extends ListActivity {
 
     //Starts the add activity
     public void addActivity(View view) {
-        Intent startAddActivity = new Intent(this, Add.class);
-        startActivityForResult(startAddActivity, SECOND_ACTIVITY_REQUEST_CODE);
+        Intent intent = new Intent(this, Add.class);
+        intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
+        startActivity(intent);
     }
 
     //Loading the shared preferences into a set and convert it to a payment list
