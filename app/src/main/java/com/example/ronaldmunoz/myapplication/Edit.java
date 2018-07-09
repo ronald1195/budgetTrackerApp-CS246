@@ -70,6 +70,12 @@ public class Edit extends AppCompatActivity {
         comments = text.getText().toString();
 
         serializeAndStore();
+
+
+        Intent i=new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
     }
 
 
@@ -110,12 +116,6 @@ public class Edit extends AppCompatActivity {
 
         text = findViewById(R.id.dueDateTb1);
         text.setText(mem.getPaymentDueDate().toString());
-
-        /*
-        Spinner mySpinner = findViewById(R.id.paymentFreqSp);
-        int spinnerPos =
-        mySpinner.setS;
-        */
 
         text = findViewById(R.id.commentsAdd);
         text.setText(mem.comments);

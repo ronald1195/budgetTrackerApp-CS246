@@ -19,22 +19,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static com.example.ronaldmunoz.myapplication.MainActivity.MY_PREFS_NAME;
 
 public class Add extends AppCompatActivity {
 
-    //The necessary variables to get stuff going
-    String userName;
-    String userEmail;
-    Date paymentDueDate;
-    String frequency;
-    String comments;
-
-    int index;
-    String json;
-
     ArrayList<String> paymentList;
-
-    //Throwback to week 3
     Gson gson = new Gson();
 
     @Override
@@ -49,8 +41,11 @@ public class Add extends AppCompatActivity {
 
     //Get stuff from main activity
     public void loadData() {
-        Intent intent = getIntent();
-        paymentList = intent.getStringArrayListExtra(MainActivity.ARRAY_LIST);
+        Set<String> emptySet = new TreeSet<>();
+        Set<String> payments;
+        SharedPreferences prefs = getSharedPreferences(MainActivity.MY_PREFS_NAME, MODE_PRIVATE);
+        payments = prefs.getStringSet("payments", emptySet);
+        paymentList = new ArrayList<>(payments);
     }
 
     //Setting the spinner with the proper values
@@ -62,6 +57,13 @@ public class Add extends AppCompatActivity {
 
     //This will get the data from the ui and store it in a membership object
     public Membership getDataFromFiels() throws ParseException {
+
+        String userName;
+        String userEmail;
+        Date paymentDueDate;
+        String frequency;
+        String comments;
+
         EditText text = findViewById(R.id.nameAdd);
         userName = text.getText().toString();
 
@@ -79,35 +81,28 @@ public class Add extends AppCompatActivity {
         comments = text.getText().toString();
 
         return new Membership (
-                userName, userEmail, paymentDueDate, frequency, comments, paymentList.size()
-        );
-
-
-
+                userName, userEmail, paymentDueDate, frequency, comments, paymentList.size());
     }
 
     public void saveItemOnClick(View view) {
     }
 
-    public void submitNewMembershipButtonOnClick(View view){
-        //
-        String TAG = getApplication().getPackageName();
-        EditText membershipName = findViewById(R.id.nameAdd);
-        Log.i(TAG, "getting membership name: " + membershipName.getText().toString());
+    public void submitNewMembershipButtonOnClick(View view) throws ParseException {
+        Membership mem = getDataFromFiels();
+        String newJson = gson.toJson(mem);
+        paymentList.add(newJson);
+        Set<String> paymentSet = new TreeSet<>(paymentList);
 
-/*
-        //Save into shared preferences.
-        String memName  = membershipName.getText().toString();
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(KEY_NAME, memName);
+        //Saving to Shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putStringSet("payments", paymentSet);
         editor.apply();
-        editor.commit();
-        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent();
-        intent.putExtra("new membership created", memName);
-        setResult(RESULT_OK, intent);
-        finish();
-        */
+        Intent i=new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
+        //finish();
+
     }
 }
