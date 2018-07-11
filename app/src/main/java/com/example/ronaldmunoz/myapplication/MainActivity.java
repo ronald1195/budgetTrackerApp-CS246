@@ -67,7 +67,7 @@ public class MainActivity extends ListActivity {
         //I made some changes to be able to open the edit activity from selecting a listView item
         final String [] list = {};
         arrayList = new ArrayList<>(Arrays.asList(list));
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentsList);
         getListView().setAdapter(listAdapter);
 
 
@@ -78,7 +78,9 @@ public class MainActivity extends ListActivity {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                showInputBox(arrayList.get(position),position);
+                showInputBox(paymentsList.get(position),position);
+                String TAG = getApplication().getPackageName();
+                Log.i(TAG, "index: " + position);
                 return true;
             }
         });
@@ -105,7 +107,7 @@ public class MainActivity extends ListActivity {
         dialog.setContentView(R.layout.list_item);
         TextView txtMessage = dialog.findViewById(R.id.txtmessage);
         txtMessage.setText("Edit options");
-        Button btEdit = dialog.findViewById(R.id.btedit);
+        //Button btEdit = dialog.findViewById(R.id.btedit);
         listIndex = index;
         dialog.show();
     }
@@ -115,15 +117,16 @@ public class MainActivity extends ListActivity {
         Intent intent = new Intent(this, Edit.class);
         jsonItem = paymentsList.get(listIndex);
         intent.putExtra(EDIT_ITEM, jsonItem);
-        intent.putExtra(INDEX, listIndex);
+        intent.putExtra(INDEX, Integer.toString(listIndex));
         intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
         startActivity(intent);
     }
 
     //Starts the add activity
     public void addActivity(View view) {
-        Intent startAddActivity = new Intent(this, Add.class);
-        startActivityForResult(startAddActivity, SECOND_ACTIVITY_REQUEST_CODE);
+        Intent intent = new Intent(this, Add.class);
+        intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
+        startActivity(intent);
     }
 
     //Loading the shared preferences into a set and convert it to a payment list
@@ -137,7 +140,8 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        loadItems();
+/*
         // check that it is the SecondActivity with an OK result
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
@@ -157,6 +161,7 @@ public class MainActivity extends ListActivity {
                 }
             }
         }
+        */
     }
 
 
