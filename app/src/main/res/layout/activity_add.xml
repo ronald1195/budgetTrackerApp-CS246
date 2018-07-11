@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dueDateTb"
+        android:id="@+id/dueDateInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
@@ -33,10 +33,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailInput" />
 
     <Spinner
-        android:id="@+id/paymentFreqSp"
+        android:id="@+id/paymentFrequency"
         android:layout_width="214dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -45,10 +45,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dueDateTb" />
+        app:layout_constraintTop_toBottomOf="@+id/dueDateInput" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/commentsInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.011"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paymentFreqSp" />
+        app:layout_constraintTop_toBottomOf="@+id/paymentFrequency" />
 
     <Button
         android:id="@+id/button"
@@ -70,10 +70,10 @@
         android:text="@string/done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/commentsInput" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/emailInput"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="85dp"
