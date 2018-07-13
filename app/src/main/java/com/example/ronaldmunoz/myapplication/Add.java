@@ -1,7 +1,9 @@
 package com.example.ronaldmunoz.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +38,6 @@ public class Add extends AppCompatActivity {
 
         setSpinner();
         loadData();
-
     }
 
     //Get stuff from main activity
@@ -80,29 +81,107 @@ public class Add extends AppCompatActivity {
         text = findViewById(R.id.commentsAdd);
         comments = text.getText().toString();
 
+        if(comments == null || comments.isEmpty()){
+            comments = "No comments";
+        }
+
         return new Membership (
                 userName, userEmail, paymentDueDate, frequency, comments, paymentList.size());
     }
 
-    public void saveItemOnClick(View view) {
-    }
-
     public void submitNewMembershipButtonOnClick(View view) throws ParseException {
-        Membership mem = getDataFromFiels();
-        String newJson = gson.toJson(mem);
-        paymentList.add(newJson);
-        Set<String> paymentSet = new TreeSet<>(paymentList);
 
-        //Saving to Shared preferences
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putStringSet("payments", paymentSet);
-        editor.apply();
+        if(emptyTextFieldsCheck()) {
 
-        Intent i=new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+            Membership mem = getDataFromFiels();
+            String newJson = gson.toJson(mem);
+            paymentList.add(newJson);
+            Set<String> paymentSet = new TreeSet<>(paymentList);
 
-        //finish();
+            //Saving to Shared preferences
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putStringSet("payments", paymentSet);
+            editor.apply();
+
+            Intent i = new Intent(this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
 
     }
-}
+
+    private boolean emptyTextFieldsCheck() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setCancelable(false);
+        dialog.setTitle("Woops, there was a problem!");
+        dialog.setPositiveButton("Gotcha", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                //Action for "Delete".
+            }
+        })
+                .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Action for "Cancel".
+                    }
+                });
+
+
+            String userName = null;
+            String userEmail = null;
+            Date paymentDueDate = null;
+            String frequency = null;
+
+            EditText text = findViewById(R.id.nameAdd);
+            userName = text.getText().toString();
+
+            text = findViewById(R.id.emailAdd);
+            userEmail = text.getText().toString();
+
+            text = findViewById(R.id.dueDateTb1);
+            DateFormat df = new SimpleDateFormat("dd", Locale.ENGLISH);
+
+            try {
+                paymentDueDate = df.parse(text.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Spinner mySpinner = findViewById(R.id.paymentFreqSp);
+            frequency = mySpinner.getSelectedItem().toString();
+
+
+            if(userName == null || userName.isEmpty()){
+
+                dialog.setMessage("You need to insert a name for your payment" );
+                final AlertDialog alert = dialog.create();
+                alert.show();
+                return false;
+            }
+            else if(userEmail == null || userEmail.isEmpty()){
+
+                dialog.setMessage("You need to insert a your email address" );
+                final AlertDialog alert = dialog.create();
+                alert.show();
+                return false;
+            }
+            else if(paymentDueDate == null){
+
+                dialog.setMessage("You need to insert a payment due date" );
+                final AlertDialog alert = dialog.create();
+                alert.show();
+                return false;
+            }
+            else if(frequency == null || frequency.isEmpty()){
+
+                dialog.setMessage("You need to insert frequency for your payment" );
+                final AlertDialog alert = dialog.create();
+                alert.show();
+                return false;
+            }
+            else
+                return true;
+        }
+    }

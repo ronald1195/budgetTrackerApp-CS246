@@ -42,12 +42,7 @@ public class MainActivity extends ListActivity {
     ArrayList<String> paymentsList;
     Set<String> emptySet = new TreeSet<>();
 
-
-    //RONALD STUFF
-    public static final String USER_PREF = "USER_PREF";
-    public static final String KEY_NAME = "MEMBERSHIP_NAME";
     SharedPreferences sp;
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     private ArrayAdapter<String> listAdapter ;
 
 
@@ -69,8 +64,6 @@ public class MainActivity extends ListActivity {
         arrayList = new ArrayList<>(Arrays.asList(list));
         listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentsList);
         getListView().setAdapter(listAdapter);
-
-
 
         //When the user presses and holds on an item in the list he will get a dialog box
         //containing an edit and a delete button, currently the delete one
@@ -135,33 +128,6 @@ public class MainActivity extends ListActivity {
         payments = prefs.getStringSet("payments", emptySet);
         paymentsList = new ArrayList<>(payments);
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        loadItems();
-/*
-        // check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-
-                // get String data from Intent
-                String returnString = data.getStringExtra("returningStringArray");
-
-                //Printing what was saved in the shared_preferences file
-                String TAG = getApplication().getPackageName();
-                sp = getSharedPreferences(USER_PREF, Context.MODE_PRIVATE);
-                if (sp.contains(KEY_NAME)) {
-                    Log.i(TAG, "shared preferences content: " + sp.getString(KEY_NAME,""));
-
-                    listAdapter.add(sp.getString(KEY_NAME,""));
-                    // fire the event
-                    listAdapter.notifyDataSetChanged();
-                }
-            }
-        }
-        */
     }
 
 
