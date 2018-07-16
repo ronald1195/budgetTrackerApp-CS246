@@ -15,17 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-/*
-Right now there are two separate lists for the payments one for display and the other one
-containing the JSON I will mostly be dealing with the JSON one for the edit activity
-and I will hook the two up later on
-Durid
-*/
 
 public class MainActivity extends ListActivity {
 
@@ -44,7 +42,9 @@ public class MainActivity extends ListActivity {
 
     SharedPreferences sp;
     private ArrayAdapter<String> listAdapter ;
-
+    String json;
+    Gson gson = new Gson();
+    ArrayList simpleInfo = new ArrayList<>(Arrays.asList());
 
     int listIndex;
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
@@ -59,10 +59,19 @@ public class MainActivity extends ListActivity {
         loadItems();
         emptySet.add("empty");
 
+        ////
+
+
+        createSmpleViewArray();
+
+
+
+        ///
+
         //I made some changes to be able to open the edit activity from selecting a listView item
         final String [] list = {};
         arrayList = new ArrayList<>(Arrays.asList(list));
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, paymentsList);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, simpleInfo);
         getListView().setAdapter(listAdapter);
 
         //When the user presses and holds on an item in the list he will get a dialog box
@@ -127,6 +136,17 @@ public class MainActivity extends ListActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         payments = prefs.getStringSet("payments", emptySet);
         paymentsList = new ArrayList<>(payments);
+
+    }
+
+    public void createSmpleViewArray(){
+        for(int i = 0; i < paymentsList.size(); i++){
+
+            String jsonObject = paymentsList.get(i);
+            Membership member = gson.fromJson(jsonObject, Membership.class);
+            String name = member.getMembershipName();
+            simpleInfo.add(name);
+        }
 
     }
 
