@@ -81,8 +81,10 @@ public class Edit extends AppCompatActivity {
 
     public void serializeAndStore() {
         //Serializing a new object with the edited information... hopefully
+
+        String amount = "0.00";
         Membership mem = new Membership
-                (userName, userEmail, paymentDueDate, frequency, comments, index);
+                (userName, userEmail, paymentDueDate, frequency, comments, index, amount);
         String newJson = gson.toJson(mem);
 
         //Adding the items to the arrayList at the index we got from the list and converting

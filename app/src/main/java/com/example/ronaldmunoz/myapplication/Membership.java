@@ -9,6 +9,7 @@ public class Membership {
     Date paymentDueDate;
     String frequency;
     String comments;
+    String amount;
 
     //The index is to help keep track of the item in the arrayList when it is being edited
     int index;
@@ -21,26 +22,29 @@ public class Membership {
         comments = null;
         frequency = null;
         index = 0;
+        amount = null;
     }
 
     // Non-default constructor for Membership class
-    public Membership(String name, String email, Date dueDate, String freq , String comment, int index){
+    public Membership(String name, String email, Date dueDate, String freq , String comment, int index, String amount){
         membershipName = name;
         userEmail = email;
         paymentDueDate = dueDate;
         frequency = freq;
         comments = comment;
         this.index = index;
+        this.amount = amount;
     }
 
     // Non-default constructor 2
-    public Membership(String name, Date dueDate, String freq, int index){
+    public Membership(String name, Date dueDate, String freq, int index, String amount){
         membershipName = name;
         userEmail = null;
         paymentDueDate = dueDate;
         frequency = freq;
         comments = null;
         this.index = index;
+        this.amount = amount;
     }
 
 
@@ -60,6 +64,9 @@ public class Membership {
     public String getFrequency() {
         return frequency;
     }
+
+    public String getAmount() { return amount; }
+
 
     public  int getIndex() {return index;}
 
