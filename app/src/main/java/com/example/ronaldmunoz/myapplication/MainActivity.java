@@ -44,7 +44,7 @@ public class MainActivity extends ListActivity {
     private ArrayAdapter<String> listAdapter ;
     String json;
     Gson gson = new Gson();
-    ArrayList simpleInfo = new ArrayList<>(Arrays.asList());
+    ArrayList simpleInfo = new ArrayList<>();
 
     int listIndex;
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
@@ -129,6 +129,11 @@ public class MainActivity extends ListActivity {
         Intent intent = new Intent(this, Add.class);
         intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
         startActivity(intent);
+    }
+
+    //Deletes selected item
+    public void deleteItem(View view) {
+        paymentsList.remove(listIndex);
     }
 
     //Loading the shared preferences into a set and convert it to a payment list
