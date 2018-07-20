@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,12 +40,10 @@ public class MainActivity extends ListActivity {
     ArrayList<String> paymentsList;
     Set<String> emptySet = new TreeSet<>();
 
-    SharedPreferences sp;
+
     private ArrayAdapter<String> listAdapter ;
-    String json;
     Gson gson = new Gson();
-    ArrayList<String> names = new ArrayList<String>();
-    //ArrayList<Object> images = new ArrayList<>(Arrays.asList());
+    ArrayList<String> names = new ArrayList<>();
     ArrayList<String> amounts = new ArrayList<String>();
 
     int listIndex;
@@ -64,15 +63,7 @@ public class MainActivity extends ListActivity {
 
 
         //I made some changes to be able to open the edit activity from selecting a listView item
-        final String [] list = {};
-        arrayList = new ArrayList<>(Arrays.asList(list));
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
-
-        //CustomAdapter customAdapter = new CustomAdapter();
-        //ListView listview = (ListView)findViewById(android.R.id.list);
-        //listview.setAdapter(customAdapter);
-
-        getListView().setAdapter(listAdapter);
+        updateList();
 
         //When the user presses and holds on an item in the list he will get a dialog box
         //containing an edit and a delete button, currently the delete one
@@ -110,6 +101,8 @@ public class MainActivity extends ListActivity {
         TextView txtMessage = dialog.findViewById(R.id.txtmessage);
         txtMessage.setText("Edit options");
         //Button btEdit = dialog.findViewById(R.id.btedit);
+        Button btDelete = dialog.findViewById(R.id.btdelete);
+
         listIndex = index;
         dialog.show();
     }
@@ -122,6 +115,16 @@ public class MainActivity extends ListActivity {
         intent.putExtra(INDEX, Integer.toString(listIndex));
         intent.putStringArrayListExtra(ARRAY_LIST, paymentsList);
         startActivity(intent);
+    }
+
+    public void delete(View view) {
+        paymentsList.remove(listIndex);
+        names.clear();
+        amounts.clear();
+        createSimpleViewArray();
+        updateList();
+        savePreferences(paymentsList);
+        recreate();
     }
 
     //Starts the add activity
@@ -151,6 +154,21 @@ public class MainActivity extends ListActivity {
             amounts.add(amount);
         }
 
+    }
+
+    public void updateList() {
+
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+        getListView().setAdapter(listAdapter);
+    }
+
+    public void savePreferences(ArrayList list) {
+
+        Set<String> paymentSet = new TreeSet<>(list);
+        //Saving to Shared preferences
+        SharedPreferences.Editor editor = getSharedPreferences(MainActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putStringSet("payments", paymentSet);
+        editor.apply();
     }
 
     /*

@@ -27,6 +27,7 @@ public class Edit extends AppCompatActivity {
     Date paymentDueDate;
     String frequency;
     String comments;
+    String amount;
 
     int index;
     String json;
@@ -66,8 +67,12 @@ public class Edit extends AppCompatActivity {
         Spinner mySpinner = findViewById(R.id.paymentFreqSp);
         frequency = mySpinner.getSelectedItem().toString();
 
+        text = findViewById(R.id.amountInput);
+        amount = "$ " +  text.getText().toString();
+
         text = findViewById(R.id.commentsAdd);
         comments = text.getText().toString();
+
 
         serializeAndStore();
 
@@ -82,7 +87,7 @@ public class Edit extends AppCompatActivity {
     public void serializeAndStore() {
         //Serializing a new object with the edited information... hopefully
 
-        String amount = "0.00";
+
         Membership mem = new Membership
                 (userName, userEmail, paymentDueDate, frequency, comments, index, amount);
         String newJson = gson.toJson(mem);
