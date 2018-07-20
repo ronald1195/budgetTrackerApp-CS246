@@ -2,7 +2,6 @@ package com.example.ronaldmunoz.myapplication;
 
 import android.app.Dialog;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,14 +9,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +43,9 @@ public class MainActivity extends ListActivity {
     private ArrayAdapter<String> listAdapter ;
     String json;
     Gson gson = new Gson();
-    ArrayList simpleInfo = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<String>();
+    //ArrayList<Object> images = new ArrayList<>(Arrays.asList());
+    ArrayList<String> amounts = new ArrayList<String>();
 
     int listIndex;
     public static final String MY_PREFS_NAME = "com.example.favoritescripture.PREFERENCE_FILE_KEY";
@@ -59,19 +60,18 @@ public class MainActivity extends ListActivity {
         loadItems();
         emptySet.add("empty");
 
-        ////
+        createSimpleViewArray();
 
-
-        createSmpleViewArray();
-
-
-
-        ///
 
         //I made some changes to be able to open the edit activity from selecting a listView item
         final String [] list = {};
         arrayList = new ArrayList<>(Arrays.asList(list));
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, simpleInfo);
+        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
+
+        //CustomAdapter customAdapter = new CustomAdapter();
+        //ListView listview = (ListView)findViewById(android.R.id.list);
+        //listview.setAdapter(customAdapter);
+
         getListView().setAdapter(listAdapter);
 
         //When the user presses and holds on an item in the list he will get a dialog box
@@ -131,11 +131,6 @@ public class MainActivity extends ListActivity {
         startActivity(intent);
     }
 
-    //Deletes selected item
-    public void deleteItem(View view) {
-        paymentsList.remove(listIndex);
-    }
-
     //Loading the shared preferences into a set and convert it to a payment list
     public void loadItems() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -144,17 +139,52 @@ public class MainActivity extends ListActivity {
 
     }
 
-    public void createSmpleViewArray(){
+    public void createSimpleViewArray(){
+
         for(int i = 0; i < paymentsList.size(); i++){
 
             String jsonObject = paymentsList.get(i);
             Membership member = gson.fromJson(jsonObject, Membership.class);
             String name = member.getMembershipName();
-            simpleInfo.add(name);
+            String amount = member.getAmount();
+            names.add(name);
+            amounts.add(amount);
         }
 
     }
 
+    /*
+    class CustomAdapter extends BaseAdapter{
 
+        @Override
+        public int getCount() {
+            return 1;
+        }
 
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.custom_list_view,null);
+            //ImageView imageView = convertView.findViewById(R.id.imageViewCustom);
+            TextView textView_name = convertView.findViewById(R.id.textViewNameCustom);
+            TextView textView_amount = convertView.findViewById(R.id.textViewAmountCustom);
+
+            loadItems();
+            createSimpleViewArray();
+
+            textView_name.setText(names.get(position));
+            textView_amount.setText(amounts.get(position));
+            return null;
+        }
+    }
+*/
 }

@@ -64,6 +64,7 @@ public class Add extends AppCompatActivity {
         Date paymentDueDate;
         String frequency;
         String comments;
+        String amount;
 
         EditText text = findViewById(R.id.nameAdd);
         userName = text.getText().toString();
@@ -81,12 +82,17 @@ public class Add extends AppCompatActivity {
         text = findViewById(R.id.commentsAdd);
         comments = text.getText().toString();
 
+        text = findViewById(R.id.amountInput);
+        amount = text.getText().toString();
+
         if(comments == null || comments.isEmpty()){
             comments = "No comments";
         }
 
+        String amountFormat = "$ " + amount;
+
         return new Membership (
-                userName, userEmail, paymentDueDate, frequency, comments, paymentList.size());
+                userName, userEmail, paymentDueDate, frequency, comments, paymentList.size(), amountFormat);
     }
 
     public void submitNewMembershipButtonOnClick(View view) throws ParseException {
@@ -133,6 +139,7 @@ public class Add extends AppCompatActivity {
             String userEmail = null;
             Date paymentDueDate = null;
             String frequency = null;
+            String amount = null;
 
             EditText text = findViewById(R.id.nameAdd);
             userName = text.getText().toString();
@@ -151,6 +158,9 @@ public class Add extends AppCompatActivity {
 
             Spinner mySpinner = findViewById(R.id.paymentFreqSp);
             frequency = mySpinner.getSelectedItem().toString();
+
+            text = findViewById(R.id.amountInput);
+            amount = text.getText().toString();
 
 
             if(userName == null || userName.isEmpty()){
@@ -177,6 +187,13 @@ public class Add extends AppCompatActivity {
             else if(frequency == null || frequency.isEmpty()){
 
                 dialog.setMessage("You need to insert frequency for your payment" );
+                final AlertDialog alert = dialog.create();
+                alert.show();
+                return false;
+            }
+            else if(amount == null || frequency.isEmpty()){
+
+                dialog.setMessage("You need to insert an amount for your payment" );
                 final AlertDialog alert = dialog.create();
                 alert.show();
                 return false;

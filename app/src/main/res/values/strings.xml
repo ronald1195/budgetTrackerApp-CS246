@@ -101,4 +101,5 @@
     <string name="done">Done</string>
     <string name="budget_tracker_app">Budget Tracker App</string>
     <string name="emailString">Email</string>
+    <string name="membershipImage">membershipImage</string>
 </resources>
